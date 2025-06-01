@@ -38,7 +38,7 @@ log "INFO" "🚀 Запуск полной установки Supabase self-host
 echo ""
 
 # Проверяем переменные окружения или запрашиваем интерактивно
-if [[ -n "$SUPABASE_DOMAIN" ]]; then
+if [[ -n "${SUPABASE_DOMAIN:-}" ]]; then
     DOMAIN="$SUPABASE_DOMAIN"
     log "INFO" "Используется домен из переменной окружения: $DOMAIN"
 else
@@ -48,7 +48,7 @@ else
     fi
 fi
 
-if [[ -n "$SUPABASE_EMAIL" ]]; then
+if [[ -n "${SUPABASE_EMAIL:-}" ]]; then
     EMAIL="$SUPABASE_EMAIL"
     log "INFO" "Используется email из переменной окружения: $EMAIL"
 else
@@ -58,7 +58,7 @@ else
     fi
 fi
 
-if [[ -n "$SUPABASE_USERNAME" ]]; then
+if [[ -n "${SUPABASE_USERNAME:-}" ]]; then
     DASHBOARD_USERNAME="$SUPABASE_USERNAME"
     log "INFO" "Используется логин из переменной окружения: $DASHBOARD_USERNAME"
 else
@@ -68,7 +68,7 @@ else
     fi
 fi
 
-if [[ -n "$SUPABASE_PASSWORD" ]]; then
+if [[ -n "${SUPABASE_PASSWORD:-}" ]]; then
     DASHBOARD_PASSWORD="$SUPABASE_PASSWORD"
     log "INFO" "Используется пароль из переменной окружения"
 else
