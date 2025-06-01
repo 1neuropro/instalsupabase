@@ -36,47 +36,27 @@ log "INFO" "🚀 Запуск полной установки Supabase self-host
 
 # Сбор пользовательских данных
 echo ""
+read -p "Введите домен (например: supabase.example.com): " DOMAIN
+read -p "Введите email для SSL сертификата: " EMAIL
+read -p "Введите логин для Supabase Studio: " DASHBOARD_USERNAME
+read -s -p "Введите пароль для Supabase Studio: " DASHBOARD_PASSWORD
+echo ""
 
-# Проверяем переменные окружения или запрашиваем интерактивно
-if [[ -n "${SUPABASE_DOMAIN:-}" ]]; then
-    DOMAIN="$SUPABASE_DOMAIN"
-    log "INFO" "Используется домен из переменной окружения: $DOMAIN"
-else
-    read -p "Введите домен (например: supabase.example.com): " DOMAIN
-    if [[ -z "$DOMAIN" ]]; then
-        error "Домен не может быть пустым"
-    fi
+# Проверки
+if [[ -z "$DOMAIN" ]]; then
+    error "Домен не может быть пустым"
 fi
 
-if [[ -n "${SUPABASE_EMAIL:-}" ]]; then
-    EMAIL="$SUPABASE_EMAIL"
-    log "INFO" "Используется email из переменной окружения: $EMAIL"
-else
-    read -p "Введите email для SSL сертификата: " EMAIL
-    if [[ -z "$EMAIL" ]]; then
-        error "Email не может быть пустым"
-    fi
+if [[ -z "$EMAIL" ]]; then
+    error "Email не может быть пустым"
 fi
 
-if [[ -n "${SUPABASE_USERNAME:-}" ]]; then
-    DASHBOARD_USERNAME="$SUPABASE_USERNAME"
-    log "INFO" "Используется логин из переменной окружения: $DASHBOARD_USERNAME"
-else
-    read -p "Введите логин для Supabase Studio: " DASHBOARD_USERNAME
-    if [[ -z "$DASHBOARD_USERNAME" ]]; then
-        error "Логин не может быть пустым"
-    fi
+if [[ -z "$DASHBOARD_USERNAME" ]]; then
+    error "Логин не может быть пустым"
 fi
 
-if [[ -n "${SUPABASE_PASSWORD:-}" ]]; then
-    DASHBOARD_PASSWORD="$SUPABASE_PASSWORD"
-    log "INFO" "Используется пароль из переменной окружения"
-else
-    read -s -p "Введите пароль для Supabase Studio: " DASHBOARD_PASSWORD
-    echo ""
-    if [[ -z "$DASHBOARD_PASSWORD" ]]; then
-        error "Пароль не может быть пустым"
-    fi
+if [[ -z "$DASHBOARD_PASSWORD" ]]; then
+    error "Пароль не может быть пустым"
 fi
 
 # Генерация ключей
